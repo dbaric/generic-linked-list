@@ -6,7 +6,6 @@
       <change afterPath="$PROJECT_DIR$/.idea/generic-linked-list.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main-extended.c" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +39,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1639071320590</updated>
-      <workItem from="1639071321924" duration="3828000" />
+      <workItem from="1639071321924" duration="3980000" />
     </task>
     <servers />
   </component>
