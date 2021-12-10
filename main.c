@@ -24,41 +24,46 @@ int add_to_list(Position head, Position node) {
     return 0;
 }
 
-int print_node(Position node, int size_of_data_pointer);
-int print_node(Position node, int size_of_data_pointer) {
-    Position master = node;
-    Position slave = master + size_of_data_pointer;
-
-    printf("\n");
-    printf("data (address): %p \n", slave);
-    printf("next: %p \n", master->next);
-    printf("\n");
+int print_node(Position node, int size_of_data_pointer, int more_info);
+int print_node(Position node, int size_of_data_pointer, int more_info) {
+    printf("Node:\n");
+    printf("->address: %p \n", node);
+    printf("->next: %p \n", node->next);
+    if(more_info == 1) {
+        printf("->data (address): %p \n", *(node+size_of_data_pointer));
+        printf("\t->data (value): %i \n", *(node+size_of_data_pointer));
+    }
 
     return 0;
 }
 
-int print_list(Position head, int size_of_data_pointer);
-int print_list(Position head, int size_of_data_pointer) {
+int print_list(Position head, int size_of_data_pointer, int more_info);
+int print_list(Position head, int size_of_data_pointer, int more_info) {
     Position temp = head;
 
-    printf("\nList:");
+    printf("\nList:\n");
     while(temp) {
-        print_node(temp, size_of_data_pointer);
+        print_node(temp, size_of_data_pointer, more_info);
         temp = temp->next;
     }
 
     return 0;
 }
 
-int remove_node(Position node);
-int remove_node(Position node) {
-  Position temp = node;
+int remove_node(Position head, Position node);
+int remove_node(Position head, Position node) {
+    Position current = head;
+    Position previous = current;
 
-  temp = node->next;
-  node->next = temp->next;
-  free(temp);
+    while(current != node) {
+        previous = current;
+        current = current->next;
+    }
 
-  return 0;
+    previous->next = current->next;
+    free(current);
+
+    return 0;
 }
 
 Position create_node(int size_of_data_pointer);
@@ -70,58 +75,58 @@ Position create_node(int size_of_data_pointer) {
     return master;
 }
 
-
-Position validate_slave(Position master, int size_of_data_pointer);
-Position validate_slave(Position master, int size_of_data_pointer) {
-    Position slave = master + (size_of_data_pointer);
-
-    if(!slave) {
-        return NULL;
-    }
-
-    return slave;
+int set_node_value(Position node, int* value, int size_of_data_pointer);
+int set_node_value(Position node, int* value, int size_of_data_pointer) {
+    int* var = (int*)(node+size_of_data_pointer);
+    *var = value;
+    return 0;
 }
 
 int main() {
     int size_of_data_pointer = sizeof(void*);
+    printf("sizeof(data_ptr): %i, sizeof(struct): %i \n\n", size_of_data_pointer, sizeof(Node));
+    Position head = create_node(size_of_data_pointer);
+
+    Position number_test = create_node(size_of_data_pointer);
+    int value = 1950;
+    set_node_value(number_test, value, size_of_data_pointer);
+    print_node(number_test, size_of_data_pointer, 1);
+    printf("(int) value: %p\n\n", value, 1);
+
+    Position letter_test = create_node(size_of_data_pointer);
+    char letter = 'a';
+    set_node_value(letter_test, letter, size_of_data_pointer);
+    print_node(letter_test, size_of_data_pointer, 1);
+    printf("(char) letter: %p \n\n", letter);
+
+    Position array_test = create_node(size_of_data_pointer);
     int arr[3] = {1,2,3};
+    set_node_value(array_test, arr, size_of_data_pointer);
+    print_node(array_test, size_of_data_pointer, 1);
+    printf("(int[3] arr) %i\n\n", arr);
 
-    // cjelokupna ideja: overflowati pointer (najoptimalnije)
+    struct _Custom;
+    typedef struct _Custom* CustomPointer;
+    typedef struct _Custom {
+        int a;
+        char b;
+    } Custom;
 
-    // može primiti int
-    int a_data = 5;
-    Position a = create_node(size_of_data_pointer);
-    Position slave_a = validate_slave(a, size_of_data_pointer);
-    memcpy(slave_a, &a_data, size_of_data_pointer);
+    CustomPointer struct_test = (CustomPointer)malloc(sizeof(Custom));
+    struct_test->a = 1911;
+    struct_test->b = 'b';
 
-    // može primiti char
-    char b_data ='b';
-    Position b = create_node(size_of_data_pointer);
-    Position slave_b = validate_slave(b, size_of_data_pointer);
-    memcpy(slave_b, b, size_of_data_pointer);
+    set_node_value(struct_test, struct_test, size_of_data_pointer);
+    print_node(struct_test, size_of_data_pointer, 1);
+    printf("(struct_test) %i\n\n", struct_test);
 
-    // može primiti samog sebe
-    Position c = create_node(size_of_data_pointer);
-    Position slave_c = validate_slave(c, size_of_data_pointer);
-    memcpy(slave_c, a, size_of_data_pointer);
+    add_to_list(head, number_test);
+    add_to_list(head, letter_test);
+    add_to_list(head, array_test);
+    add_to_list(head, struct_test);
 
-    // polje..?
-    Position d = create_node(size_of_data_pointer);
-    Position slave_d = validate_slave(d, size_of_data_pointer);
-    memcpy(slave_d, arr, size_of_data_pointer);
-
-    // magija
-    add_to_list(a, b);
-    add_to_list(a, c);
-    add_to_list(a, d);
-
-    print_list(a, size_of_data_pointer);
-
-    remove_node(b);
-
-    print_list(a, size_of_data_pointer);
-    // 💪 :)
-
+    remove_node(head, letter_test);
+    print_list(head, size_of_data_pointer, 0);
 
     return 0;
 }
