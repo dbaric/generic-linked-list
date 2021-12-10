@@ -1,40 +1,44 @@
 sizeof(data_ptr): 8, sizeof(struct): 8
 
 Node:
-->address: 0x556a486c0720
+->address: 0x5635d9826720
 ->next: (nil)
 ->data (address): 0x79e
 (int) value: 0x79e 1950
 
 Node:
-->address: 0x556a486c0790
+->address: 0x5635d9826790
 ->next: (nil)
 ->data (address): 0x61
 (char) letter: 0x61 a
 
 Node:
-->address: 0x556a486c0800
+->address: 0x5635d9826800
 ->next: (nil)
-->data (address): 0x908d2b6c
-(int[3] arr) 0x7ffe908d2b6c 1
+->data (address): 0x5d1c141c
+(int[3] arr) 0x7ffd5d1c141c 1
 
 Node:
-->address: 0x556a486c0870
+->address: 0x5635d9826870
 ->next: (nil)
-->data (address): 0x486c08e0
-(struct_test) 0x556a486c08e0 b
+->data (address): 0xd98268e0
+(struct_test) 0x5635d98268e0 b
 
 
 List:
 Node:
-->address: 0x556a486c06b0
-->next: 0x556a486c0720
+->address: 0x5635d98266b0
+->next: 0x5635d9826720
+->data (address): (nil)
 Node:
-->address: 0x556a486c0720
-->next: 0x556a486c0800
+->address: 0x5635d9826720
+->next: 0x5635d9826800
+->data (address): 0x79e
 Node:
-->address: 0x556a486c0800
-->next: 0x556a486c0870
+->address: 0x5635d9826800
+->next: 0x5635d9826870
+->data (address): 0x5d1c141c
 Node:
-->address: 0x556a486c0870
+->address: 0x5635d9826870
 ->next: (nil)
+->data (address): 0xd98268e0

@@ -130,7 +130,8 @@ int main() {
 
     remove_node(head, letter_test);
 
-    print_list(head, size_of_data_pointer, 0);
+    print_list(head, size_of_data_pointer, 1);
+
 
     return 0;
 }
