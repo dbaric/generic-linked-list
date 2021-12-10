@@ -99,14 +99,14 @@ int main() {
     set_node_value(letter_test, letter, size_of_data_pointer);
 
     print_node(letter_test, size_of_data_pointer, 1);
-    printf("(char) letter: %p \n\n", letter);
+    printf("(char) letter: %p %c \n\n", letter, letter, 1);
 
     Position array_test = create_node(size_of_data_pointer);
     int arr[3] = {1,2,3};
     set_node_value(array_test, arr, size_of_data_pointer);
 
     print_node(array_test, size_of_data_pointer, 1);
-    printf("(int[3] arr) %p \n\n", arr);
+    printf("(int[3] arr) %p %i \n\n", arr, *arr);
 
     struct _Custom;
     typedef struct _Custom* CustomPointer;
@@ -121,15 +121,15 @@ int main() {
     set_node_value(struct_node_test, struct_test, size_of_data_pointer);
 
     print_node(struct_node_test, size_of_data_pointer, 1);
-    printf("(struct_test) %p \n\n", struct_test);
+    printf("(struct_test) %p %c \n\n", struct_test, struct_test->b);
 
-    head->next = number_test;
-    number_test->next = letter_test;
-    letter_test->next = array_test;
-    array_test->next = struct_node_test;
-    struct_node_test->next = NULL;
+    add_to_list(head, number_test);
+    add_to_list(head, letter_test);
+    add_to_list(head, array_test);
+    add_to_list(head, struct_node_test);
 
     remove_node(head, letter_test);
+
     print_list(head, size_of_data_pointer, 0);
 
     return 0;
