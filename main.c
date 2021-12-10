@@ -31,7 +31,6 @@ int print_node(Position node, int size_of_data_pointer) {
 
     printf("\n");
     printf("data (address): %p \n", slave);
-    printf("it could be => int: %i, char: %c \n", *slave, *slave);
     printf("next: %p \n", master->next);
     printf("\n");
 
@@ -83,41 +82,38 @@ Position validate_slave(Position master, int size_of_data_pointer) {
     return slave;
 }
 
-int insert_arr(Position master, int value[3], int size_of_data_pointer);
-int insert_arr(Position master, int value[3], int size_of_data_pointer) {
-    Position slave = validate_slave(master, size_of_data_pointer);
-    memcpy(slave, &value, size_of_data_pointer);
-    return 0;
-}
-
-int insert_int(Position master, int value, int size_of_data_pointer);
-int insert_int(Position master, int value, int size_of_data_pointer) {
-    Position slave = validate_slave(master, size_of_data_pointer);
-    memcpy(slave, &value, size_of_data_pointer);
-    return 0;
-}
-
-int insert_char(Position master, char value, int size_of_data_pointer);
-int insert_char(Position master, char value, int size_of_data_pointer) {
-    Position slave = validate_slave(master, size_of_data_pointer);
-    memcpy(slave, &value, size_of_data_pointer);
-    return 0;
-}
-
-
 int main() {
     int size_of_data_pointer = sizeof(void*);
     int arr[3] = {1,2,3};
 
-    Position a = create_node(size_of_data_pointer);
-    insert_int(a, 5, size_of_data_pointer);
-    Position b = create_node(size_of_data_pointer);
-    insert_char(b, 'b', size_of_data_pointer);
-    Position c = create_node(size_of_data_pointer);
-    insert_char(b, arr, size_of_data_pointer);
+    // cjelokupna ideja: overflowati pointer (najoptimalnije)
 
+    // može primiti int
+    int a_data = 5;
+    Position a = create_node(size_of_data_pointer);
+    Position slave_a = validate_slave(a, size_of_data_pointer);
+    memcpy(slave_a, &a_data, size_of_data_pointer);
+
+    // može primiti char
+    char b_data ='b';
+    Position b = create_node(size_of_data_pointer);
+    Position slave_b = validate_slave(b, size_of_data_pointer);
+    memcpy(slave_b, b, size_of_data_pointer);
+
+    // može primiti samog sebe
+    Position c = create_node(size_of_data_pointer);
+    Position slave_c = validate_slave(c, size_of_data_pointer);
+    memcpy(slave_c, a, size_of_data_pointer);
+
+    // polje..?
+    Position d = create_node(size_of_data_pointer);
+    Position slave_d = validate_slave(d, size_of_data_pointer);
+    memcpy(slave_d, arr, size_of_data_pointer);
+
+    // magija
     add_to_list(a, b);
     add_to_list(a, c);
+    add_to_list(a, d);
 
     print_list(a, size_of_data_pointer);
 
