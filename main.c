@@ -19,6 +19,7 @@ int add_to_list(Position head, Position node) {
     while(temp->next) {
         temp = temp->next;
     }
+
     temp->next = node;
 
     return 0;
@@ -30,8 +31,8 @@ int print_node(Position node, int size_of_data_pointer, int more_info) {
     printf("->address: %p \n", node);
     printf("->next: %p \n", node->next);
     if(more_info == 1) {
-        printf("->data (address): %p \n", *(node+size_of_data_pointer));
-        printf("\t->data (value): %i \n", *(node+size_of_data_pointer));
+        printf("->data (address): %p \n", (node+size_of_data_pointer));
+        printf("\t->data (value): %i \n", (node+size_of_data_pointer));
     }
 
     return 0;
@@ -77,7 +78,7 @@ Position create_node(int size_of_data_pointer) {
 
 int set_node_value(Position node, int* value, int size_of_data_pointer);
 int set_node_value(Position node, int* value, int size_of_data_pointer) {
-    int* var = (int*)(node+size_of_data_pointer);
+    int* var = (int*)(&node+size_of_data_pointer);
     *var = value;
     return 0;
 }
@@ -122,10 +123,11 @@ int main() {
     print_node(struct_node_test, size_of_data_pointer, 1);
     printf("(struct_test) %i\n\n", struct_test);
 
-    add_to_list(head, number_test);
-    add_to_list(head, letter_test);
-    add_to_list(head, array_test);
-    add_to_list(head, struct_test);
+    head->next = number_test;
+    number_test->next = letter_test;
+    letter_test->next = array_test;
+    array_test->next = struct_node_test;
+    struct_node_test->next = NULL;
 
     remove_node(head, letter_test);
     print_list(head, size_of_data_pointer, 0);
