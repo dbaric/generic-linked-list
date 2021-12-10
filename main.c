@@ -31,8 +31,8 @@ int print_node(Position node, int size_of_data_pointer, int more_info) {
     printf("->address: %p \n", node);
     printf("->next: %p \n", node->next);
     if(more_info == 1) {
-        printf("->data (address): %p \n", (node+size_of_data_pointer));
-        printf("\t->data (value): %i \n", *(node+size_of_data_pointer));
+        printf("->data (address): %p \n", *(node+size_of_data_pointer));
+        // printf("\t->data (value): %p \n", *(node+size_of_data_pointer));
     }
 
     return 0;
@@ -92,7 +92,7 @@ int main() {
     int value = 1950;
     set_node_value(number_test, value, size_of_data_pointer);
     print_node(number_test, size_of_data_pointer, 1);
-    printf("(int) value: %i \n\n", value, 1);
+    printf("(int) value: %p %i \n\n", value, value, 1);
 
     Position letter_test = create_node(size_of_data_pointer);
     char letter = 'a';
