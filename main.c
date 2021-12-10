@@ -96,12 +96,14 @@ int main() {
     Position letter_test = create_node(size_of_data_pointer);
     char letter = 'a';
     set_node_value(letter_test, letter, size_of_data_pointer);
+
     print_node(letter_test, size_of_data_pointer, 1);
     printf("(char) letter: %p \n\n", letter);
 
     Position array_test = create_node(size_of_data_pointer);
     int arr[3] = {1,2,3};
     set_node_value(array_test, arr, size_of_data_pointer);
+
     print_node(array_test, size_of_data_pointer, 1);
     printf("(int[3] arr) %i\n\n", arr);
 
@@ -111,13 +113,13 @@ int main() {
         int a;
         char b;
     } Custom;
-
+    Position struct_node_test = create_node(size_of_data_pointer);
     CustomPointer struct_test = (CustomPointer)malloc(sizeof(Custom));
     struct_test->a = 1911;
     struct_test->b = 'b';
+    set_node_value(struct_node_test, struct_test, size_of_data_pointer);
 
-    set_node_value(struct_test, struct_test, size_of_data_pointer);
-    print_node(struct_test, size_of_data_pointer, 1);
+    print_node(struct_node_test, size_of_data_pointer, 1);
     printf("(struct_test) %i\n\n", struct_test);
 
     add_to_list(head, number_test);
