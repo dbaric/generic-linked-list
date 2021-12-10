@@ -91,14 +91,14 @@ int main() {
     int value = 1950;
     set_node_value(number_test, value, size_of_data_pointer);
     print_node(number_test, size_of_data_pointer, 1);
-    printf("(int) value: %p\n\n", value, 1);
+    printf("(int) value: %i\n\n", value, 1);
 
     Position letter_test = create_node(size_of_data_pointer);
     char letter = 'a';
     set_node_value(letter_test, letter, size_of_data_pointer);
 
     print_node(letter_test, size_of_data_pointer, 1);
-    printf("(char) letter: %p \n\n", letter);
+    printf("(char) letter: %i \n\n", letter);
 
     Position array_test = create_node(size_of_data_pointer);
     int arr[3] = {1,2,3};
